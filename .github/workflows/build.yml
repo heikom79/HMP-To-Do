@@ -1,0 +1,34 @@
+name: Build HMP To-Do APK
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Code herunterladen
+      uses: actions/checkout@v4
+
+    - name: JDK 17 einrichten
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Gradle Wrapper ausführbar machen
+      run: chmod +x gradlew || true
+
+    - name: Debug APK mit Gradle bauen
+      run: ./gradlew assembleDebug
+
+    - name: APK-Datei als Artefakt speichern
+      uses: actions/upload-artifact@v4
+      with:
+        name: hmp-todo-debug
+        path: app/build/outputs/apk/debug/app-debug.apk
+        

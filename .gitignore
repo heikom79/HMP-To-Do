@@ -1,1 +1,11 @@
+# Gradle
+.gradle/
+/build/
+/app/build/
+
+# Android Studio Cache
+.idea/
+*.iml
+.DS_Store
+/local.properties
 
